@@ -1,0 +1,279 @@
+:root {
+    --blue: #0300A1;
+    --dark-blue: #010064;
+    --yellow: #FFFF04;
+    --red: #B00100;
+    --white: #FFFFFF;
+}
+
+body {
+    padding: 0;
+    font-family: monospace;
+    background-color: var(--blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+img {
+    height: 100%;
+    width: 100%;
+}
+
+#container {
+    width: 900px;
+    margin: 0 auto;
+    background-color: var(--blue);
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 255, 4, 0.3);
+}
+
+#container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+            to bottom,
+            rgba(0, 0, 0, 0) 50%,
+            rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes crtFlicker {
+    0% {
+        opacity: 0.97;
+    }
+    3% {
+        opacity: 0.85;
+    }
+    6% {
+        opacity: 0.97;
+    }
+    70% {
+        opacity: 0.98;
+    }
+    72% {
+        opacity: 0.90;
+    }
+    77% {
+        opacity: 0.98;
+    }
+    100% {
+        opacity: 0.97;
+    }
+}
+
+#container {
+    animation: crtFlicker 5s infinite;
+}
+
+#container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+            ellipse at center,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(0, 0, 0, 0.15) 90%
+    );
+    pointer-events: none;
+    z-index: 9;
+}
+
+/* Enhance the retro feel with a slight text shadow */
+#paytable, #info, #controls .btn {
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 5;
+}
+
+#paytable {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
+    border-collapse: collapse;
+    color: var(--yellow);
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 35px;
+    background-color: var(--dark-blue);
+    border: 2px solid var(--yellow);
+}
+
+.paytable-row {
+    display: contents;
+}
+
+.cell {
+    padding: 5px;
+    border: 1px solid var(--yellow);
+}
+
+.paytable-row {
+    display: contents;
+}
+
+.paytable-hand {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.cell:not(.paytable-hand) {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.active-bet {
+    background-color: var(--red);
+}
+
+@keyframes highlightRow {
+    0%, 100% {
+        color: var(--yellow);
+        background-color: transparent;
+    }
+    50% {
+        color: #000;
+        background-color: #fff;
+    }
+}
+
+.paytable-row.highlight {
+    animation: highlightRow 1s infinite;
+    position: relative;
+    z-index: 6;
+}
+
+.paytable-row.highlight .cell {
+    animation: highlightRow 1s infinite;
+}
+
+.paytable-row.highlight .active-bet {
+    animation: highlightActiveBet 1s infinite;
+}
+
+#cards {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 900px;
+}
+
+.card {
+    width: 180px;
+    height: 220px;
+    border-radius: 10px;
+    position: relative;
+    border: 3px solid var(--blue);
+    margin: 0 5px;
+}
+
+.hold {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--yellow);
+    color: #000;
+    font-weight: bold;
+    padding: 2px 8px;
+    border: 4px solid var(--red);
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+.card.held {
+    border: 3px solid var(--red);
+}
+
+#info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    margin: 15px 0;
+}
+
+.win-info {
+    grid-column: 1;
+    justify-content: flex-start;
+}
+
+.bet-info {
+    grid-column: 2;
+    color: var(--white);
+    justify-self: center;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.2em;
+}
+
+.cash-info {
+    grid-column: 3;
+    justify-self: flex-end;
+    text-align: right;
+}
+
+.text {
+    font-size: 36px;
+    color: var(--red);
+    letter-spacing: 2px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 5;
+    text-shadow:
+            -2px -2px 0 var(--yellow),
+            2px -2px 0 var(--yellow),
+            -2px 2px 0 var(--yellow),
+            2px 2px 0 var(--yellow),
+            0.02em 0 0 rgba(255, 0, 0, 0.75),
+            -0.02em 0 0 rgba(0, 255, 0, 0.75),
+            0 0.02em 0 rgba(0, 0, 255, 0.75);
+}
+
+#controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    margin-top: -10px;
+    background-color: var(--blue);
+}
+
+.btn {
+    width: 100%;
+    padding: 12px 0;
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #FFCC00;
+    color: #000000;
+    border-radius: 0px;
+    cursor: pointer;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    border: 2px solid #FFFFCC;
+    border-right-color: #996600;
+    border-bottom-color: #996600;
+}
+
+.disabled {
+    background-color: gray;
+}

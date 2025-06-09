@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clojure Poker</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        let init = function() {fetch("/init", {method: 'POST',})}
+    </script>
+</head>
+<body onload="init()">
+<div id="container">
+    <div id="paytable">
+        <div class="paytable-row">
+            <div class="cell paytable-hand">ROYAL FLUSH.........................</div>
+            <div class="cell active-bet">250</div>
+            <div class="cell">500</div>
+            <div class="cell">750</div>
+            <div class="cell">1000</div>
+            <div class="cell">4000</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">STRAIGHT FLUSH......................</div>
+            <div class="cell active-bet">50</div>
+            <div class="cell">100</div>
+            <div class="cell">150</div>
+            <div class="cell">200</div>
+            <div class="cell">250</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">4 OF A KIND.........................</div>
+            <div class="cell active-bet">25</div>
+            <div class="cell">50</div>
+            <div class="cell">75</div>
+            <div class="cell">100</div>
+            <div class="cell">125</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">FULL HOUSE..........................</div>
+            <div class="cell active-bet">9</div>
+            <div class="cell">18</div>
+            <div class="cell">27</div>
+            <div class="cell">36</div>
+            <div class="cell">45</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">FLUSH...............................</div>
+            <div class="cell active-bet">6</div>
+            <div class="cell">12</div>
+            <div class="cell">18</div>
+            <div class="cell">24</div>
+            <div class="cell">30</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">STRAIGHT............................</div>
+            <div class="cell active-bet">4</div>
+            <div class="cell">8</div>
+            <div class="cell">12</div>
+            <div class="cell">16</div>
+            <div class="cell">20</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">3 OF A KIND.........................</div>
+            <div class="cell active-bet">3</div>
+            <div class="cell">6</div>
+            <div class="cell">9</div>
+            <div class="cell">12</div>
+            <div class="cell">15</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">2 PAIR..............................</div>
+            <div class="cell active-bet">2</div>
+            <div class="cell">4</div>
+            <div class="cell">6</div>
+            <div class="cell">8</div>
+            <div class="cell">10</div>
+        </div>
+
+        <div class="paytable-row">
+            <div class="cell paytable-hand">JACKS OR BETTER.....................</div>
+            <div class="cell active-bet">1</div>
+            <div class="cell">2</div>
+            <div class="cell">3</div>
+            <div class="cell">4</div>
+            <div class="cell">5</div>
+        </div>
+    </div>
+
+    <div id="cards">
+        <div class="card">
+            <img src="/images/card-back.png">
+        </div>
+        <div class="card">
+            <img src="/images/card-back.png">
+        </div>
+        <div class="card">
+            <img src="/images/card-back.png">
+        </div>
+        <div class="card">
+            <img src="/images/card-back.png">
+        </div>
+        <div class="card">
+            <img src="/images/card-back.png">
+        </div>
+    </div>
+
+    <div id="info">
+        <div class="bet-info">BET 1</div>
+        <div class="cash-info">
+            <div class="text">CASH 100</div>
+        </div>
+    </div>
+
+    <div id="controls">
+        <div class="btn" hx-post="/inc-bet" hx-target="#paytable" hx-swap="outerHTML">BET ONE</div>
+        <div class="btn" hx-post="/max-bet" hx-target="#container" hx-swap="outerHTML">BET MAX</div>
+        <div class="btn" hx-post="/deal" hx-target="#container" hx-swap="outerHTML">DEAL</div>
+    </div>
+</div>
+
+</body>
+</html>
