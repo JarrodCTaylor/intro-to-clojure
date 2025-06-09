@@ -100,5 +100,5 @@
     (start-server port)))
 
 (comment
-  (def server (start-server 3000))
-  (server))
+  (def stop-server (start-server 3000))
+  (stop-server))

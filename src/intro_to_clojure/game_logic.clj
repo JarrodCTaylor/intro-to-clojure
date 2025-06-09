@@ -48,55 +48,236 @@
 ;;; ===================
 ;;; Workshop Challenges
 ;;; ===================
-(defn get-ranks [hand]
-  (map :rank hand))
+(defn get-ranks
+  "Extracts the rank of each card in the given hand.
 
-(defn get-suits [hand]
-  (map :suit hand))
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
 
-(defn rank-frequencies [hand]
-  (frequencies (get-ranks hand)))
+   Returns:
+   - A sequence of ranks from the hand
 
-(defn has-n-of-kind? [hand n]
-  (let [rank-equals-n (fn [[_ rank]] (= n rank))]
-    (some rank-equals-n (rank-frequencies hand))))
+   Example:
+   (get-ranks [{:rank :ace :suit :hearts} {:rank :king :suit :clubs}])
+   ;; => (:ace :king)"
+  [hand]
+  nil
+  )
 
-(defn is-four-of-kind? [hand]
-  (has-n-of-kind? hand 4))
+(defn get-suits
+  "Extracts the suit of each card in the given hand.
 
-(defn is-three-of-kind? [hand]
-  (has-n-of-kind? hand 3))
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
 
-(defn is-flush? [hand]
-  (= 1 (count (distinct (get-suits hand)))))
+   Returns:
+   - A sequence of suits from the hand
 
-(defn is-straight? [hand]
-  (let [values (sort (map rank-value hand))
-        step-pairs (partition 2 1 values)
-        deltas (for [[a b] step-pairs] (- b a))]
-    (apply = 1 deltas)))
+   Example:
+   (get-suits [{:rank :ace :suit :hearts} {:rank :king :suit :clubs}])
+   ;; => (:hearts :clubs)"
+  [hand]
+  nil
+  )
 
-(defn is-straight-flush? [hand]
-  (and (is-straight? hand) (is-flush? hand)))
+(defn rank-frequencies
+  "Counts the frequency of each rank in the hand.
 
-(defn is-royal-flush? [hand]
-  (and (is-flush? hand)
-       (= (set (get-ranks hand)) #{:10 :jack :queen :king :ace})))
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
 
-(defn is-full-house? [hand]
-  (let [freqs (vals (rank-frequencies hand))]
-    (= (set freqs) #{2 3})))
+   Returns:
+   - A map where keys are ranks and values are their frequencies
 
-(defn is-two-pair? [hand]
-  (let [freqs (vals (rank-frequencies hand))]
-    (= (frequencies freqs) {1 1, 2 2})))
+   Example:
+   (rank-frequencies [{:rank :ace :suit :hearts} {:rank :ace :suit :clubs}])
+   ;; => {:ace 2}"
+  [hand]
+  nil
+  )
+
+(defn has-n-of-kind?
+  "Determines if the hand contains exactly n cards of the same rank.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+   - n: The number of cards of the same rank to check for
+
+   Returns:
+   - true if the hand contains n cards of the same rank, false otherwise
+
+   Example:
+   (has-n-of-kind? [{:rank :ace :suit :hearts} {:rank :ace :suit :clubs}] 2)
+   ;; => true"
+  [hand n]
+  nil
+  )
+
+(defn is-four-of-kind?
+  "Determines if the hand contains four cards of the same rank.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand contains four cards of the same rank, false otherwise
+
+   Example:
+   (is-four-of-kind? [{:rank :ace :suit :hearts} {:rank :ace :suit :clubs}
+                      {:rank :ace :suit :diamonds} {:rank :ace :suit :spades}
+                      {:rank :king :suit :hearts}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-three-of-kind?
+  "Determines if the hand contains three cards of the same rank.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand contains three cards of the same rank, false otherwise
+
+   Example:
+   (is-three-of-kind? [{:rank :ace :suit :hearts} {:rank :ace :suit :clubs}
+                       {:rank :ace :suit :diamonds} {:rank :king :suit :hearts}
+                       {:rank :queen :suit :spades}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-flush?
+  "Determines if the hand contains five cards of the same suit.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if all cards in the hand have the same suit, false otherwise
+
+   Example:
+   (is-flush? [{:rank :ace :suit :hearts} {:rank :king :suit :hearts}
+               {:rank :queen :suit :hearts} {:rank :jack :suit :hearts}
+               {:rank :10 :suit :hearts}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-straight?
+  "Determines if the hand contains five cards of sequential rank.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand contains five cards of sequential rank, false otherwise
+
+   Example:
+   (is-straight? [{:rank :ace :suit :hearts} {:rank :2 :suit :clubs}
+                 {:rank :3 :suit :diamonds} {:rank :4 :suit :hearts}
+                 {:rank :5 :suit :spades}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-straight-flush?
+  "Determines if the hand contains five cards of sequential rank, all of the same suit.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand is both a straight and a flush, false otherwise
+
+   Example:
+   (is-straight-flush? [{:rank :5 :suit :hearts} {:rank :6 :suit :hearts}
+                        {:rank :7 :suit :hearts} {:rank :8 :suit :hearts}
+                        {:rank :9 :suit :hearts}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-royal-flush?
+  "Determines if the hand contains a 10, Jack, Queen, King, and Ace, all of the same suit.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand is a royal flush, false otherwise
+
+   Example:
+   (is-royal-flush? [{:rank :10 :suit :hearts} {:rank :jack :suit :hearts}
+                     {:rank :queen :suit :hearts} {:rank :king :suit :hearts}
+                     {:rank :ace :suit :hearts}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-full-house?
+  "Determines if the hand contains three cards of one rank and two cards of another rank.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand is a full house, false otherwise
+
+   Example:
+   (is-full-house? [{:rank :ace :suit :hearts} {:rank :ace :suit :clubs}
+                    {:rank :ace :suit :diamonds} {:rank :king :suit :hearts}
+                    {:rank :king :suit :clubs}])
+   ;; => true"
+  [hand]
+  nil
+  )
+
+(defn is-two-pair?
+  "Determines if the hand contains two cards of one rank and two cards of another rank.
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand contains two pairs, false otherwise
+
+   Example:
+   (is-two-pair? [{:rank :ace :suit :hearts} {:rank :ace :suit :clubs}
+                  {:rank :king :suit :diamonds} {:rank :king :suit :hearts}
+                  {:rank :queen :suit :clubs}])
+   ;; => true"
+  [hand]
+  nil
+  )
 
 (defn is-pair?
-  "Jacks or better"
+  "Determines if the hand contains a pair of Jacks or better (Jacks, Queens, Kings, or Aces).
+
+   Parameters:
+   - hand: A sequence of card maps, each containing :rank and :suit keys
+
+   Returns:
+   - true if the hand contains a pair of Jacks, Queens, Kings, or Aces, false otherwise
+
+   Example:
+   (is-pair? [{:rank :jack :suit :hearts} {:rank :jack :suit :clubs}
+              {:rank :5 :suit :diamonds} {:rank :3 :suit :hearts}
+              {:rank :2 :suit :clubs}])
+   ;; => true"
   [hand]
-  (let [pairs (filter (fn [[_ rank]] (= 2 rank)) (rank-frequencies hand))
-        contains-face-card? (fn [[suit _]] (contains? #{:jack :queen :king :ace} suit))]
-    (some contains-face-card? pairs)))
+  nil
+  )
+;;; ===================
+;;; End Workshop Challenges
+;;; ===================
+
 
 (defn evaluate-hand [hand]
   (cond
