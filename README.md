@@ -16,7 +16,7 @@ Eval the comment block at the bottom of `src/intro_to_cloure/core.clj`
 
 ## Completing the implementation 
 
-The functions that evaluate a given poker hand in `src/intro_to_clojure/game-logic.clj` need to be implemented by the user.
+The functions that evaluate a given poker hand in `src/intro_to_clojure/game_logic.clj` need to be implemented by the user.
 
 Once the functions are implemented and all the tests pass. The game should be fully functional.
 
